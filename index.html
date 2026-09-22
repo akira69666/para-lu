@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Para mi Lu 🌻</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:24px;background:#f4eee2;color:#29261f;font-family:Georgia,'Times New Roman',serif}
+.wrap{width:min(760px,100%);text-align:center}
+.top{margin-bottom:18px;font-family:Arial,sans-serif;color:#29261f}
+.top small{letter-spacing:.16em;text-transform:uppercase;font-size:11px;opacity:.65}
+.top h1{font-family:Georgia,serif;font-size:clamp(26px,5vw,38px);margin:7px 0 5px;color:#29261f}
+.top p{font:14px Arial,sans-serif;color:#3d392f;margin:0}
+.scene{position:relative;min-height:520px;overflow:hidden;border-radius:30px;background:linear-gradient(#faf7ef 0 56%,#d9c99f 56% 100%);border:1px solid #cfc4aa}
+.sun{position:absolute;top:30px;right:34px;width:68px;height:68px;border-radius:50%;background:#e6c95e;opacity:.62}
+.hill{position:absolute;left:-8%;bottom:-18%;width:116%;height:55%;background:#aebf91;border-radius:50% 50% 0 0/30% 30% 0 0}
+.card,.letter{background:rgba(255,252,245,.97);border:1px solid #cfc4aa;box-shadow:0 14px 35px rgba(50,43,30,.12);color:#29261f}
+.title{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:25px;z-index:4;transition:.7s}
+.title.hide{opacity:0;transform:translateY(-15px);pointer-events:none}
+.card{max-width:520px;padding:30px;border-radius:27px}
+.card .emoji{font-size:43px}
+.card h2{font-size:31px;margin:8px 0 12px;color:#29261f}
+.card p,.letter p{color:#29261f;line-height:1.7}
+button{cursor:pointer;border:0;font-size:15px;font-weight:bold;padding:13px 21px;border-radius:999px;background:#ead36b;color:#29261f;box-shadow:0 3px 8px rgba(50,43,30,.12)}
+button:hover{filter:brightness(.97)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.flower{position:absolute;bottom:25%;width:58px;height:112px;transform-origin:bottom center;animation:grow .65s cubic-bezier(.2,.8,.2,1) both;z-index:2}
+.stem{position:absolute;bottom:0;left:28px;width:4px;height:78px;background:#637b51;border-radius:4px}
+.leaf{position:absolute;width:28px;height:14px;background:#78915f;border-radius:100% 0 100% 0;bottom:31px;left:2px;transform:rotate(18deg)}
+.leaf.r{left:29px;bottom:50px;transform:scaleX(-1) rotate(18deg)}
+.head{position:absolute;top:0;left:4px;width:50px;height:50px}
+.petal{position:absolute;left:17px;top:0;width:17px;height:27px;border-radius:50%;background:#e5bd32;transform-origin:8px 25px}
+.p1{transform:rotate(0)}.p2{transform:rotate(45deg)}.p3{transform:rotate(90deg)}.p4{transform:rotate(135deg)}.p5{transform:rotate(180deg)}.p6{transform:rotate(225deg)}.p7{transform:rotate(270deg)}.p8{transform:rotate(315deg)}
+.center{position:absolute;left:15px;top:15px;width:20px;height:20px;border-radius:50%;background:#694b29}
+.message{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:22px;z-index:5;opacity:0;pointer-events:none;transition:opacity .8s}
+.message.show{opacity:1;pointer-events:auto}
+.letter{max-width:560px;max-height:440px;overflow:auto;text-align:left;padding:29px;border-radius:26px}
+.letter p{font-size:16px;margin:0 0 15px}
+.sign{text-align:center;font-weight:bold;font-size:19px!important;margin-top:22px!important}
+.final{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:25px;z-index:7;background:rgba(255,249,233,.98);opacity:0;pointer-events:none;transition:opacity .7s}
+.final.show{opacity:1;pointer-events:auto}
+.final h3{font-size:clamp(25px,5vw,34px);line-height:1.25;margin:0 0 17px;color:#29261f}
+.final .big{font-size:22px;font-weight:bold;color:#29261f}
+.controls{margin-top:15px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.secondary{background:transparent;border:1px solid #bdb39e;color:#29261f;box-shadow:none}
+.petals{position:absolute;inset:0;z-index:8;pointer-events:none}
+.fall{position:absolute;top:-20px;width:9px;height:13px;background:#e5bd32;border-radius:80% 20%;animation:fall linear forwards}
+@keyframes grow{from{opacity:0;transform:scale(.12) translateY(25px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes fall{to{transform:translate3d(var(--x),550px,0) rotate(500deg);opacity:.1}}
+@media(max-width:500px){body{padding:12px}.scene{min-height:590px}.flower{transform:scale(.85);transform-origin:bottom center}.letter{padding:23px}.letter p{font-size:15px}.top h1{font-size:28px}}
+@media(prefers-reduced-motion:reduce){.flower{animation:none}.fall{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+<small>Un pequeño regalo a la distancia</small>
+<h1>Para mi Lu 🌻</h1>
+<p id="hint">Hay algo esperando crecer para ti.</p>
+</div>
+<div class="scene" id="scene">
+<div class="sun"></div><div class="hill"></div>
+<div id="flowers"></div><div class="petals" id="petals"></div>
+<div class="title" id="title">
+<div class="card">
+<div class="emoji">🌱</div>
+<h2>Mi Lu</h2>
+<p>El amor no es necesariamente romántico…<br>por eso quería darte unas flores hoy.</p>
+<button id="start">Hacer crecer el jardín 🌻</button>
+</div>
+</div>
+<div class="message" id="message">
+<div class="letter">
+<p>Quiero que siempre recuerdes que eres muy amada, y que yo te quiero muchísimo y que me hace muy feliz tenerte en mi vida.</p>
+<p>Gracias por tu amistad, por todos los momentos, por las pedas, las risas, por las conversaciones y por todas esas cosas lindas que, de una forma u otra, has traído a mi vida.</p>
+<p>Eres mi hermana y espero que nunca olvides lo importante que eres para mí. 💛</p>
+<p>Así que hice crecer un pequeño jardín para ti, aunque sea a la distancia.</p>
+<p class="sign">Con mucho amor,<br>tu mejor amiga 🌻</p>
+<button id="last" style="display:block;margin:8px auto 0">Y ahora sí… 👀</button>
+</div>
+</div>
+<div class="final" id="final">
+<div style="width:min(560px,100%)">
+<img src="foto-lu.jpg" alt="Foto de ustedes dos" style="display:block;width:100%;max-height:285px;object-fit:cover;border-radius:20px;margin:0 auto 18px;border:1px solid #cfc4aa;box-shadow:0 10px 25px rgba(50,43,30,.12)">
+<h3>FELIZ DÍA DE LAS PUTAS<br>FLORES AMARILLAS 🌻</h3>
+<div class="big">TE QUIERO SANGRE JAJAJA UWU 💛</div>
+<p style="color:#29261f;margin:14px 0 8px;font:14px Arial,sans-serif">Y ahora escucha tu canción 🌻</p>
+<audio id="song" controls preload="metadata" style="width:100%;max-width:440px" src="mrs-magic.mp3"></audio>
+<br><button id="again" class="secondary" style="margin-top:18px">Volver a ver el jardín</button>
+</div>
+</div>
+</div>
+<div class="controls">
+<button id="grow" disabled>🌱 Hacer crecer una flor</button>
+<button id="reset" class="secondary">Reiniciar</button>
+</div>
+</div>
+<script>
+const scene=document.getElementById('scene'),title=document.getElementById('title'),start=document.getElementById('start'),grow=document.getElementById('grow'),reset=document.getElementById('reset'),again=document.getElementById('again'),flowers=document.getElementById('flowers'),petals=document.getElementById('petals'),message=document.getElementById('message'),final=document.getElementById('final'),hint=document.getElementById('hint');
+let count=0,active=false;
+const positions=[7,18,29,40,51,62,73,84,13,34,57,78];
+function addFlower(){
+ if(!active||count>=positions.length)return;
+ const f=document.createElement('div');f.className='flower';f.style.left=positions[count]+'%';f.style.animationDelay=(count*.035)+'s';
+ f.innerHTML='<div class="head"><i class="petal p1"></i><i class="petal p2"></i><i class="petal p3"></i><i class="petal p4"></i><i class="petal p5"></i><i class="petal p6"></i><i class="petal p7"></i><i class="petal p8"></i><i class="center"></i></div><div class="stem"></div><i class="leaf"></i><i class="leaf r"></i>';
+ flowers.appendChild(f);count++;
+ hint.textContent=count<positions.length?'Sigue haciendo crecer tu jardín…':'Tu jardín está completo 🌻';
+ if(count===positions.length){grow.disabled=true;setTimeout(()=>message.classList.add('show'),700)}
+}
+function startGarden(){active=true;title.classList.add('hide');grow.disabled=false;hint.textContent='Haz clic en el jardín o en el botón para hacer crecer flores.';addFlower()}
+function showFinal(){
+ message.classList.remove('show');
+ setTimeout(()=>{
+  final.classList.add('show');
+  const song=document.getElementById('song'); if(song){song.currentTime=0; song.play().catch(()=>{});}
+  for(let i=0;i<22;i++){const p=document.createElement('i');p.className='fall';p.style.left=(3+Math.random()*94)+'%';p.style.setProperty('--x',(Math.random()*180-90)+'px');p.style.animationDuration=(2+Math.random()*2.2)+'s';p.style.animationDelay=(Math.random()*.6)+'s';petals.appendChild(p)}
+ },350)
+}
+function resetAll(){active=false;count=0;flowers.innerHTML='';petals.innerHTML='';message.classList.remove('show');final.classList.remove('show');title.classList.remove('hide');grow.disabled=true;hint.textContent='Hay algo esperando crecer para ti.';const song=document.getElementById('song');if(song){song.pause();song.currentTime=0}}
+start.addEventListener('click',startGarden);
+grow.addEventListener('click',addFlower);
+scene.addEventListener('click',e=>{if(!active||e.target.closest('button')||message.classList.contains('show')||final.classList.contains('show'))return;addFlower()});
+document.getElementById('last').addEventListener('click',showFinal);
+again.addEventListener('click',resetAll);
+reset.addEventListener('click',resetAll);
+</script>
+</body>
+</html>
